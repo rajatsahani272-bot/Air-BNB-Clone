@@ -155,7 +155,7 @@ app.post("/listings/:id/reviews", async (req,res)=>{
 // ==================== ROOT ====================
 
 app.get("/", (req, res) => {
-    res.redirect("/listings");
+    res.send("Hello I am air bnv clone");
 });
 
 
