@@ -1,39 +1,41 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<body>
-    <h3>All Listings</h3>
+<h3>All Listings</h3>
 
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-        <% for(let listing of allListings){ %>
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let listing of allListings) { %>
 
-        <a href="/listings/<%= listing._id %>" class="listing-link">
-            <div class="card col">
+        <div class="col mb-4">
+            <a href="/listings/<%= listing._id %>" class="listing-link">
 
-                <img 
-                    src="<%= listing.image?.url || 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60' %>"
-                    class="card-img-top" 
-                    alt="listing_image" 
-                    style="height: 20rem"
-                />
+                <div class="card">
 
-                <div class="card-img-overlay"></div>
+                    <img
+                        src="<%= listing.image?.url || 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60' %>"
+                        class="card-img-top"
+                        alt="listing_image"
+                        style="height: 20rem; object-fit: cover;"
+                    >
 
-                <div class="card-body">
-                    <p class="card-text">
-                        <b><%= listing.title %></b><br>
+                    <div class="card-img-overlay"></div>
 
-                        <% if (listing.price) { %>
-                            &#8377;<%= listing.price.toLocaleString("en-IN") %>/night
-                        <% } else { %>
-                            Price not available
-                        <% } %>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b><%= listing.title %></b><br>
 
-                    </p>
+                            <% if (listing.price !== undefined && listing.price !== null) { %>
+                                &#8377;<%= listing.price.toLocaleString("en-IN") %>/night
+                            <% } else { %>
+                                Price not available
+                            <% } %>
+
+                        </p>
+                    </div>
+
                 </div>
 
-            </div>
-        </a>
+            </a>
+        </div>
 
-        <% } %>
-    </div>
-</body>
+    <% } %>
+</div>
