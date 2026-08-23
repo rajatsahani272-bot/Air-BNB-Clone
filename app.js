@@ -39,10 +39,6 @@ app.engine("ejs", ejsMate);
 app.get("/listings", async (req, res, next) => {
     try {
         const allListings = await Listing.find({});
-
-        console.log("Listings count:", allListings.length);
-        console.log(allListings);
-
         res.render("listings/index.ejs", { allListings });
     } catch (err) {
         next(err);
@@ -147,34 +143,19 @@ app.delete("/listings/:id", async (req, res, next) => {
 // ==================== REVIEWS ====================
 
 // Create Review
-app.post("/listings/:id/reviews", async (req, res, next) => {
-    try {
-        const listing = await Listing.findById(req.params.id);
-
-        if (!listing) {
-            return res.status(404).send("Listing not found");
-        }
-
-        const newReview = new Review(req.body.review);
-
-        listing.reviews.push(newReview);
-
-        await newReview.save();
-        await listing.save();
-
-        console.log("New review saved");
-
-        res.redirect(`/listings/${listing._id}`);
-    } catch (err) {
-        next(err);
-    }
+app.post("/listings/:id/reviews", async (req,res)=>{
+    let listing=await Listing.findById(req.params.id);
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    console.log("new review saved");
+    res.send("new review saved");
 });
-
 
 // ==================== ROOT ====================
 
 app.get("/", (req, res) => {
-    res.send("Hi i am root");
+    res.redirect("/listings");
 });
 
 
